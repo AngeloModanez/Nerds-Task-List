@@ -1,21 +1,22 @@
 import { styles } from '../Styles';
 import { View, Text, TextInput, Pressable } from 'react-native';
 
-export function Login() {
+export function Login({ navigation }) {
     return (
-        <View style={styles.container}>
-            <View style={{ marginBottom: 32 }}>
-                <Text style={styles.title}>Log In</Text>
-                <Text style={{ fontSize: 16 }}>User</Text>
-                <TextInput style={styles.input}></TextInput>
-                <Text style={{ fontSize: 16 }}>Password</Text>
+        <View style={[styles.container, { justifyContent: 'center' }]}>
+            <View style={{ marginBottom: 124 }}>
+                <Text style={[styles.title, { fontSize: 56, marginBottom: 64, textAlign: 'center' }]}>Log In</Text>
+                <Text style={styles.text}>User</Text>
+                <TextInput style={[styles.input, { marginBottom: 40 }]}></TextInput>
+                <Text style={styles.text}>Password</Text>
                 <TextInput style={styles.input}></TextInput>
             </View>
-            <View>
-                <Pressable style={styles.button}>
-                    <Text style={styles.textBtn}>Log in</Text>
+            <View style={styles.footer}>
+                <Pressable style={[styles.btn, { backgroundColor: 'blue' }]}
+                    onPress={() => navigation.navigate('TaskList')}>
+                    <Text style={[styles.title, { color: 'white' }]}>Log in</Text>
                 </Pressable>
             </View>
-        </View>
+        </View >
     );
 }
