@@ -1,3 +1,4 @@
 export { Login } from './Login';
 export { TaskList } from './TaskList';
-export { Create } from './Create';
+export { NewTask } from './NewTask';
+export { EditTask } from './EditTask';

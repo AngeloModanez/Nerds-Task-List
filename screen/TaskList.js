@@ -1,105 +1,95 @@
 import { styles } from '../Styles';
+import { useState } from 'react';
 import { ScrollView } from 'react-native-web';
-import React, { useState } from 'react';
+import { LuFileEdit, LuTrash } from "react-icons/lu";
+import Checkbox from 'expo-checkbox';
+import { BlurView } from 'expo-blur';
 import { SafeAreaView, View, FlatList, Text, Pressable, Modal } from 'react-native';
 
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: '1234567890123456',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-    },
-];
+var DATA;
 
 export function TaskList({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
+    const [isChecked, setChecked] = useState(false);
     const Item = ({ title }) => (
-        <View style={styles.cardContainer}>
-            <View style={styles.row}>
-                <View style={styles.col}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={{ fontSize: 12 }}>Prazo: 15/12/2006</Text>
+        <View style={[styles.cardContainer, { marginBottom: 24 }]}>
+            <View style={[styles.row, { justifyContent: 'space-between' }]}>
+                <View style={[styles.row, { justifyContent: 'space-between' }]}>
+                    <View style={styles.col}>
+                        <Checkbox
+                            style={[styles.checkbox, { marginEnd: 8 }]}
+                            value={isChecked}
+                            onValueChange={setChecked}
+                            color={isChecked ? '#4630EB' : undefined}
+                        />
+                    </View>
+                    <View style={styles.col}>
+                        <Text style={styles.title}>{title}</Text>
+                        <Text style={{ fontSize: 12 }}>Prazo: {data}</Text>
+                    </View>
                 </View>
                 <View style={styles.col}>
                     <View style={styles.row}>
-                        <Pressable style={[styles.btnSm, { backgroundColor: 'green' }]}
-                            onPress={() => navigation.navigate('Create')}>
-                            <Text style={[styles.text, { color: 'white' }]}>Y</Text>
+                        <Pressable style={[styles.btnSm, { backgroundColor: 'green', color: 'white' }]}
+                            onPress={() => navigation.navigate('EditTask')}>
+                            <LuFileEdit></LuFileEdit>
                         </Pressable>
-                        <Pressable style={[styles.btnSm, { backgroundColor: 'red', marginLeft: 8 }]}
+                        <Pressable style={[styles.btnSm, { backgroundColor: 'red', color: 'white', marginLeft: 8 }]}
                             onPress={() => setModalVisible(true)}>
-                            <Text style={[styles.text, { color: 'white' }]}>X</Text>
+                            <LuTrash></LuTrash>
                         </Pressable>
                     </View>
                 </View>
             </View>
-        </View >
+        </View>
     );
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { paddingTop: 24, }]}>
             <Modal
-                animationType="slide"
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
                     Alert.alert('Modal has been closed.');
                     setModalVisible(!modalVisible);
                 }}>
-                <View style={styles.container}>
-                    <View style={styles.cardContainer}>
-                        <Text style={styles.title}>Title:</Text>
-                        <Text style={styles.text}>Lavar Boga</Text>
-                        <Text style={styles.title}>Data:</Text>
-                        <Text style={styles.text}>12/05/1923</Text>
-                        <Text style={styles.title}>Description:</Text>
-                        <Text style={styles.text}>Lavar bem o Boga com Agua e Sabão</Text>
-                    </View>
-                    <View style={styles.footer}>
-                        <Text style={styles.title}>Deseja Excluir Essa Tarefa?</Text>
-                        <View style={styles.row}>
+                <BlurView intensity={8} tint='dark' style={[styles.container, { justifyContent: 'center' }]}>
+                    <View style={[styles.cardContainer, { backgroundColor: 'white' }]}>
+                        <View style={{ marginBottom: 24 }}>
+                            <Text style={[styles.title, { textAlign: 'center' }]}>Excluir a Tarefa: {title}?</Text>
+                        </View>
+                        <View style={[styles.row, { justifyContent: 'space-around' }]}>
                             <View style={styles.col}>
                                 <Pressable
-                                    style={[styles.btnMd, { backgroundColor: 'red' }]}
+                                    style={[styles.btnSm, { backgroundColor: 'red', paddingHorizontal: 16 }]}
                                     onPress={() => setModalVisible(!modalVisible)}>
                                     <Text style={[styles.text, { color: 'white' }]}>Cancel</Text>
                                 </Pressable>
                             </View>
                             <View style={styles.col}>
                                 <Pressable
-                                    style={[styles.btnMd, { backgroundColor: 'green' }]}
+                                    style={[styles.btnSm, { backgroundColor: 'green', paddingHorizontal: 16 }]}
                                     onPress={() => setModalVisible(!modalVisible)}>
                                     <Text style={[styles.text, { color: 'white' }]}>Confirm</Text>
                                 </Pressable>
                             </View>
                         </View>
                     </View>
-                </View>
+                </BlurView>
             </Modal>
-            <View>
-                <SafeAreaView>
-                    <ScrollView>
-                        <FlatList
-                            data={DATA}
-                            renderItem={({ item }) => <Item title={item.title} />}
-                            keyExtractor={item => item.id}
-                        />
-                    </ScrollView>
-                </SafeAreaView>
-                <View style={styles.footer}>
-                    <Pressable style={[styles.btn, { backgroundColor: 'green' }]}
-                        onPress={() => navigation.navigate('Create')}>
-                        <Text style={[styles.text, { color: 'white' }]}>+</Text>
-                    </Pressable>
-                </View>
+            <ScrollView>
+                <FlatList
+                    data={DATA}
+                    renderItem={({ item }) => <Item title={item.title} />}
+                    keyExtractor={item => item.id}
+                />
+            </ScrollView>
+            <View style={[{ width: '100%', height: 72, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }]}>
+                <View style={{ width: '80%', height: 1, marginVertical: 16, backgroundColor: 'black' }} />
+                <Pressable style={[styles.btn, { backgroundColor: 'green', marginBottom: 24 }]}
+                    onPress={() => navigation.navigate('NewTask')}>
+                    <Text style={[styles.text, { color: 'white' }]}>+</Text>
+                </Pressable>
             </View>
         </View>
     );
 }
-

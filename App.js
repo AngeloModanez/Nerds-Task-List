@@ -11,7 +11,8 @@ export default function App() {
       <Drawer.Navigator initialRouteName="Login">
         <Drawer.Screen name="Login" component={screen.Login} />
         <Drawer.Screen name="TaskList" component={screen.TaskList} />
-        <Drawer.Screen name="Create" component={screen.Create} />
+        <Drawer.Screen name="NewTask" component={screen.NewTask} />
+        <Drawer.Screen name="EditTask" component={screen.EditTask} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
