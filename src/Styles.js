@@ -1,16 +1,24 @@
 import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
+    logo: {
+        width: 184,
+        height: 184,
+        margin: 'auto',
+        alignItems: 'center'
+    },
     container: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#f7f5e1',
     },
     cardContainer: {
         width: 288,
         padding: 16,
-        borderWidth: 1,
+        borderWidth: 2,
         borderRadius: 16,
+        borderColor: '#5f4237',
+        backgroundColor: 'white',
     },
     footer: {
         width: 288,
@@ -27,33 +35,35 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     text: {
-        fontSize: 14,
-    },
-    title: {
         fontSize: 16,
-        fontWeight: 700,
+        fontWeight: 500,
+        color: '#5f4237',
     },
     input: {
         width: 288,
         padding: 8,
         fontSize: 16,
-        borderWidth: 1,
-        borderRadius: 8,
+        borderWidth: 2,
+        borderRadius: 10,
+        color: '#5f4237',
+        borderColor: '#5f4237',
     },
-    btn: {
+    btnLg: {
         width: 288,
         padding: 8,
         borderRadius: 24,
         alignItems: 'center',
+        backgroundColor: '#fcb224',
     },
-    btnMd: {
+    btn: {
         width: 128,
         padding: 8,
         borderRadius: 8,
         alignItems: 'center',
     },
     btnSm: {
-        padding: 8,
+        padding: 8,        
         borderRadius: 8,
+        justifyContent: 'center',
     },
 })
